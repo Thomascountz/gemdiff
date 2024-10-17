@@ -1,0 +1,168 @@
+/* General body styling */
+body.diffoscope {
+    background: #f5f5f5;
+    color: #333;
+    font-family: Arial, sans-serif;
+    padding: 1em;
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Footer styling */
+.diffoscope .footer {
+    font-size: 0.85em;
+    text-align: center;
+    color: #555;
+    margin-top: 2em;
+    border-top: 1px solid #ccc;
+    padding-top: 1em;
+}
+
+/* Difference block styling */
+.diffoscope .difference {
+    border: 1px solid #ccc;
+    background: #fafafa;
+    padding: 1em;
+    margin: 1em 0;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Table styling */
+.diffoscope .difference table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1em 0;
+}
+
+.diffoscope .difference th,
+.diffoscope .difference td {
+    border-bottom: 1px solid #ddd;
+}
+
+/* Diff table column width */
+.diffoscope .colines {
+    width: 4em;
+    text-align: right;
+    color: #888;
+}
+
+.diffoscope .coldiff {
+    width: 100%;
+}
+
+/* Diff table row hover */
+.diffoscope table.diff tr:hover td {
+    background: #fffae6;
+}
+
+/* Line number color */
+.diffoscope .line {
+    color: #888;
+}
+
+/* Header row styling */
+.diffoscope th {
+    background: #333;
+    color: white;
+    font-weight: bold;
+    padding: 0.6em;
+}
+
+/* Unmodified lines */
+.diffoscope .diffunmodified td {
+    background: #e8e8f0;
+}
+
+/* Hunk header styling */
+.diffoscope .diffhunk td {
+    background: #d0d0d0;
+    font-weight: bold;
+}
+
+/* Added lines */
+.diffoscope .diffadded td {
+    background: #e6ffe6;
+}
+
+/* Deleted lines */
+.diffoscope .diffdeleted td {
+    background: #ffe6e6;
+}
+
+/* Changed lines */
+.diffoscope .diffchanged td {
+    background: #ffffcc;
+}
+
+/* Inline additions and deletions */
+.diffoscope ins {
+    background-color: #c8ffc8;
+    color: #006600;
+    text-decoration: none;
+    padding: 0 0.2em;
+}
+
+.diffoscope del {
+    background-color: #ffc8c8;
+    color: #990000;
+    text-decoration: none;
+    padding: 0 0.2em;
+}
+
+/* Comments */
+.diffoscope .comment {
+    font-style: italic;
+    color: #555;
+}
+
+/* Multiline comments */
+.diffoscope .comment.multiline {
+    font-family: monospace;
+    white-space: pre;
+    background-color: #f0f0f0;
+    padding: 0.5em;
+    border-left: 3px solid #ccc;
+    margin: 0.5em 0;
+}
+
+/* Highlighting errors */
+.diffoscope .error {
+    background: #ff4d4d;
+    color: white;
+    padding: 0.5em;
+    border-radius: 4px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Anchor link styling */
+.diffoscope .anchor {
+    margin-left: 0.5em;
+    font-size: 0.85em;
+    color: #666;
+    text-decoration: none;
+}
+
+.diffoscope .diffheader:hover .anchor {
+    display: inline;
+    color: #555;
+}
+
+/* Lazy load details */
+.diffoscope div.ondemand-details {
+    background: #ffebeb;
+    color: #900;
+    text-align: center;
+    padding: 0.7em;
+    border: 1px dashed #900;
+    margin: 1em 0;
+    border-radius: 4px;
+}
+
+.diffoscope table.diff tr.ondemand:hover td,
+.diffoscope div.ondemand-details:hover {
+    background: #ffcccc;
+    cursor: pointer;
+}
