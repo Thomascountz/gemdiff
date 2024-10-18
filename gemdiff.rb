@@ -1,13 +1,33 @@
-require "tty-command"
-require "tty-prompt"
-require "tty-logger"
-require "tty-file"
-require "tty-link"
+#!/usr/bin/env ruby
+
+require "bundler/inline"
+
+gemfile do
+  source "https://rubygems.org"
+  gem "tty-command", require: true
+  gem "tty-prompt", require: true
+  gem "tty-logger", require: true
+  gem "tty-file", require: true
+  gem "tty-link", require: true
+  gem "gems", require: true
+  gem "ostruct", require: true
+end
+
 require "fileutils"
 require "rubygems/package"
-require "gems"
 
-require_relative "tty_prompt_patch"
+# https://github.com/Thomascountz/tty-prompt/pull/1/files
+module MultiListPatch
+  def keyenter(*)
+    valid = true
+    valid = @min <= @selected.size if @min
+    valid &= @selected.size <= @max if @max
+
+    super if valid
+  end
+end
+
+TTY::Prompt::MultiList.include(MultiListPatch)
 
 class GemDiff
   CACHE_DIR = File.join(Dir.home, ".gemdiff_cache")
@@ -16,7 +36,7 @@ class GemDiff
   DIFFOSCOPE_SUCCESS_MESSAGE = "diffoscope detected."
   FETCH_GEM_COMMAND = "gem fetch"
   DIFFOSCOPE_OUTPUT_DIR = "out"
-  DIFFOSCOPE_CSS_PATH = "../diffoscope.css"
+  DIFFOSCOPE_CSS_PATH = "diffoscope.css"
 
   def initialize
     @logger = TTY::Logger.new { |config| config.metadata = [:date, :time] }
@@ -79,7 +99,7 @@ class GemDiff
 
   def fetch_gem_versions(client, gem_name)
     versions = client.versions(gem_name)
-    versions.map { |version| version["number"] }
+    versions.map { |version| version["number"] }.sort_by { |v| Gem::Version.new(v) }.reverse
   rescue
     @logger.error("Failed to fetch gem versions for #{gem_name}.")
     exit(1)
@@ -122,7 +142,7 @@ class GemDiff
     outfile = File.join(DIFFOSCOPE_OUTPUT_DIR, "#{gem_name}-#{version_a}-#{version_b}.html")
     diff_command = "diffoscope --new-file --html=#{outfile} --css=#{DIFFOSCOPE_CSS_PATH}"
 
-    @cmd.run!("#{diff_command} #{gem_package_1} #{gem_package_2}")
+    @cmd.run!("#{diff_command} #{gem_package_1} #{gem_package_2}", printer: :null)
 
     link = TTY::Link.link_to(outfile, "file://#{File.expand_path(outfile)}")
     @logger.success("Diff generated at #{link}")
