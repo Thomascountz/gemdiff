@@ -30,7 +30,7 @@ end
 TTY::Prompt::MultiList.include(MultiListPatch)
 
 class GemDiff
-  CACHE_DIR = File.join(Dir.home, ".gemdiff_cache")
+  CACHE_DIR = ".cache"
   DIFFOSCOPE_COMMAND = "type diffoscope"
   DIFFOSCOPE_INSTALL_MESSAGE = "run `brew install diffoscope` to install diffoscope."
   DIFFOSCOPE_SUCCESS_MESSAGE = "diffoscope detected."

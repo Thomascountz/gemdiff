@@ -1,5 +1,6 @@
 # Ignore output files
-out/**
+out/**/*.html
+.cache/*.gem
 
 # Don't ignore the diffoscope.css file
 !out/diffoscope.css
